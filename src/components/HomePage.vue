@@ -41,7 +41,21 @@
     </b-container>
 </template>
 <script>
+    import {apiMixins} from "../mixins/apiMixins";
+
     export default {
         name :'HomePage',
+        data(){
+            return {
+                amount:'',
+                reference:'',
+            }
+        },
+        methods: {
+            async createCheckout()
+            {
+                await apiMixins.createCheckout(this.amount, this.reference);
+            },
+        },
     }
 </script>

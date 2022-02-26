@@ -21,17 +21,16 @@
                 this.$router.push({name: "UserLogin"});
             },
 
-            async getUser(userToken)
+            async getUser()
             {
-                if(!await apiMixins.getUser(userToken)){
+                if(!await apiMixins.getUser()){
                     await this.$router.push({name: "UserLogin"});
                 }
             },
         },
         async mounted() {
             if (localStorage.getItem("user-token")) {
-                let userToken = JSON.parse(localStorage.getItem("user-token"));
-                await this.getUser(userToken)
+                await this.getUser()
             } else {
                 await this.$router.push({name: "UserLogin"});
             }

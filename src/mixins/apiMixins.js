@@ -1,6 +1,10 @@
 import axios from "axios";
 
 export const apiMixins = {
+    async userToken(){
+        return JSON.parse(localStorage.getItem("user-token"));
+    },
+
     async authenticate(email, passwrd){
         let data = null;
         await axios.post(process.env.VUE_APP_AFMS_API_BASE + process.env.VUE_APP_AFMS_API_URI_AUTH,{
@@ -23,7 +27,8 @@ export const apiMixins = {
         return false;
     },
 
-    async getUser(userToken){
+    async getUser(){
+        let userToken = await this.userToken();
         let data = null;
         await axios.get(process.env.VUE_APP_AFMS_API_BASE + process.env.VUE_APP_AFMS_API_URI_USERS + process.env.VUE_APP_AFMS_API_URI_ME,{
             headers: {
@@ -63,5 +68,25 @@ export const apiMixins = {
         });
 
         return data;
+    },
+
+    async createCheckout(amount, reference){
+        let userToken = await this.userToken();
+        let data = null;
+        await axios.post(process.env.VUE_APP_AFMS_API_BASE + process.env.VUE_APP_AFMS_API_URI_CHECKOUTS,{
+            amount:amount,
+            reference:reference,
+        }, {
+            headers: {
+                Authorization: userToken.tokenType + " " + userToken.accessToken,
+            }
+        }).then(response => {
+            console.log(response);
+        }).catch(reason => {
+            console.log(reason);
+        });
+
+        console.log(data);
+        return false;
     },
 }
