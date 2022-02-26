@@ -1,4 +1,4 @@
-# afms-project
+# afms-vuejs
 
 ## Project setup
 ```
