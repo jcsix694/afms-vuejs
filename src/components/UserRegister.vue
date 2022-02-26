@@ -1,15 +1,67 @@
 <template>
-    <img alt="Vue logo" src="../assets/logo.png">
-    <h1>Sign Up</h1>
-    <div class="register">
-        <input type="text" v-model="email" placeholder="Enter Email" />
-        <input type="text" v-model="password" placeholder="Enter Password" />
-        <input type="text" v-model="name" placeholder="Enter Name" />
-        <input type="text" v-model="surname" placeholder="Enter Surname" />
-        <button v-on:click="signUp">Sign Up</button>
-        <button v-on:click="login">Login</button>
-    </div>
+    <b-container class="bv-example-row">
+        <b-row>
+            <br>
+            <br>
+        </b-row>
+        <b-row>
+            <b-col>
+            </b-col>
+            <b-col cols="7">
+                <div>
+                    <b-card title="Sign Up" sub-title="">
+                        <b-form @submit="signUp">
+                            <b-form-group id="input-group-1" label="Email:" label-for="input-email">
+                                <b-form-input
+                                        id="input-email"
+                                        type="email"
+                                        placeholder="Enter email"
+                                        v-model="email"
+                                        required
+                                ></b-form-input>
+                            </b-form-group>
+                            <b-form-group id="input-group-2" label="Password:" label-for="input-password">
+                                <b-form-input
+                                        id="input-password"
+                                        type="password"
+                                        placeholder="Enter password"
+                                        v-model="password"
+                                        required
+                                ></b-form-input>
+                            </b-form-group>
+                            <b-form-group id="input-group-3" label="Name:" label-for="input-name">
+                                <b-form-input
+                                        id="input-name"
+                                        type="text"
+                                        placeholder="Enter name"
+                                        v-model="name"
+                                        required
+                                ></b-form-input>
+                            </b-form-group>
+                            <b-form-group id="input-group-4" label="Surname:" label-for="input-surname">
+                                <b-form-input
+                                        id="input-surname"
+                                        type="text"
+                                        placeholder="Enter surname"
+                                        v-model="surname"
+                                        required
+                                ></b-form-input>
+                            </b-form-group>
+                            <b-button type="submit" variant="primary">Submit</b-button>
+                        </b-form>
+                        <div>
+                            <br>
+                            <b-link v-on:click="login">Login</b-link>
+                        </div>
+                    </b-card>
+                </div>
+            </b-col>
+            <b-col>
+            </b-col>
+        </b-row>
+    </b-container>
 </template>
+
 <script>
 import {apiMixins} from "../mixins/apiMixins";
 export default {
@@ -41,22 +93,3 @@ export default {
     }
 }
 </script>
-
-<style>
-    .register input{
-        display: block;
-        padding-left: 40px;
-        margin-bottom: 10px;
-        height: 40px;
-        margin-left: auto;
-        margin-right: auto;
-        width: 300px;
-    }
-
-    .register button{
-        height: 40px;
-        width: 320px;
-        cursor: pointer;
-    }
-</style>
-

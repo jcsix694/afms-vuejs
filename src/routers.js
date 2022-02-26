@@ -7,12 +7,18 @@ const routes = [
     {
         name:'UserLogin',
         component:UserLogin,
-        path:'/'
+        path:'/',
+        meta: {
+            hideNavbar: true,
+        }
     },
     {
         name:'UserRegister',
         component:UserRegister,
-        path:'/register'
+        path:'/register',
+        meta: {
+            hideNavbar: true,
+        }
     },
     {
         name:'HomePage',
