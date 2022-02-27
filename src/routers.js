@@ -1,4 +1,5 @@
-import HomePage from './components/HomePage.vue'
+import PortalHome from './components/PortalHome.vue'
+import PortalCheckouts from './components/PortalCheckouts.vue'
 import UserRegister from "./components/UserRegister.vue";
 import UserLogin from "./components/UserLogin.vue";
 import {createRouter, createWebHistory} from 'vue-router'
@@ -21,9 +22,14 @@ const routes = [
         }
     },
     {
-        name:'HomePage',
-        component:HomePage,
+        name:'PortalHome',
+        component:PortalHome,
         path:'/home'
+    },
+    {
+        name:'PortalCheckouts',
+        component:PortalCheckouts,
+        path:'/checkouts'
     },
 ]
 

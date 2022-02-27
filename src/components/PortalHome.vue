@@ -44,7 +44,7 @@
     import {apiMixins} from "../mixins/apiMixins";
 
     export default {
-        name :'HomePage',
+        name :'PortalHome',
         data(){
             return {
                 amount:'',

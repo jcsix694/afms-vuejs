@@ -1,8 +1,8 @@
 <template>
 
         <b-nav tabs v-if="!$route.meta.hideNavbar">
-            <b-nav-item active role="button">Home</b-nav-item>
-            <b-nav-item role="button">Checkouts</b-nav-item>
+            <b-nav-item v-on:click="home" active role="button">Home</b-nav-item>
+            <b-nav-item v-on:click="checkouts" role="button">Checkouts</b-nav-item>
             <b-nav-item v-on:click="logout" role="button">Logout</b-nav-item>
         </b-nav>
 
@@ -15,6 +15,18 @@
     export default {
         name: 'App',
         methods: {
+            home()
+            {
+                localStorage.clear();
+                this.$router.push({name: "PortalHome"});
+            },
+
+            checkouts()
+            {
+                localStorage.clear();
+                this.$router.push({name: "PortalCheckouts"});
+            },
+
             logout()
             {
                 localStorage.clear();

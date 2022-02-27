@@ -60,7 +60,7 @@
                 await apiMixins.authenticate(this.email, this.password);
 
                 if(localStorage.getItem("user-token")){
-                    await this.$router.push({name:'HomePage'});
+                    await this.$router.push({name:'PortalHome'});
                 }
             },
 
@@ -71,7 +71,7 @@
         },
         async mounted(){
             if(localStorage.getItem("user-token")){
-                await this.$router.push({name:"HomePage"});
+                await this.$router.push({name:"PortalHome"});
             }
         }
     }

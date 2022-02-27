@@ -88,7 +88,7 @@ export default {
 
     async mounted(){
         if(localStorage.getItem("user-token")){
-            await this.$router.push({name:"HomePage"});
+            await this.$router.push({name:"PortalHome"});
         }
     }
 }
