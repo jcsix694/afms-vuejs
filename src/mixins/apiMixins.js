@@ -81,12 +81,15 @@ export const apiMixins = {
                 Authorization: userToken.tokenType + " " + userToken.accessToken,
             }
         }).then(response => {
-            console.log(response);
+            data = response.data.data.id;
         }).catch(reason => {
-            console.log(reason);
+            if(reason.response.status === 422){
+                alert(reason.response.data.message);
+            }else{
+                alert(reason.message);
+            }
+            data = false
         });
-
-        console.log(data);
-        return false;
+        return data;
     },
 }
