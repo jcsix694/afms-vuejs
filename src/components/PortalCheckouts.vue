@@ -9,7 +9,9 @@
                 <div id="app" v-show="showTable">
                     <p class="mt-3">Current Page: {{ currentPage }}</p>
                     <b-pagination size="md" :total-rows="totalItems" v-model="currentPage" :per-page="perPage"></b-pagination>
+                    <b-overlay :show="showLoader" rounded="sm">
                     <b-table show-empty :items="items" :fields="fields" :current-page="currentPage" :per-page="0"></b-table>
+                    </b-overlay>
                 </div>
             </b-col>
         </b-row>
@@ -26,6 +28,7 @@
                 currentPage: 0,
                 perPage: 0,
                 totalItems: 0,
+                showLoader: false,
                 fields: [
                     {
                         key: 'id',
@@ -73,7 +76,11 @@
         methods: {
             async getCheckouts(page)
             {
+                this.showLoader = true;
+
                 let checkouts = await apiMixins.getCheckouts(page);
+
+                this.showLoader = false;
 
                 if(checkouts.status === 200) {
                     this.items = checkouts.data.data;
@@ -112,6 +119,8 @@
             },
         },
         async mounted() {
+            this.showLoader = true;
+
             if (localStorage.getItem("user-token")) {
                 await this.getUser();
                 await this.getCheckouts(this.currentPage);

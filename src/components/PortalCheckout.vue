@@ -14,6 +14,7 @@
                 <div v-show="showError">
                     <b-alert class="pre-formatted" variant="danger" id="show-error-text" show>{{messageError}}</b-alert>
                 </div>
+                <b-overlay :show="showLoader" rounded="sm">
                 <div id="div-completed-checkout-card" v-show="showCheckout">
                     <b-card title="" header-tag="header" footer-tag="footer">
                         <template #header>
@@ -30,6 +31,7 @@
                         </template>
                     </b-card>
                 </div>
+                </b-overlay>
             </b-col>
             <b-col>
             </b-col>
@@ -56,6 +58,7 @@
                 showError:false,
                 messageError:'',
                 messageSuccess:'',
+                showLoader: false,
             }
         },
         methods: {
@@ -76,12 +79,15 @@
             },
         },
           async mounted(){
+              this.showLoader = true;
               if (localStorage.getItem("user-token")) {
                   await this.getUser();
 
                   let urlParams = new URLSearchParams(window.location.search);
                   this.checkoutId = urlParams.get('id');
                   let checkout = await this.getCheckout();
+
+                  this.showLoader = false;
 
                   if(checkout.status === 200){
                       this.checkoutStatus = checkout.data.data.status;

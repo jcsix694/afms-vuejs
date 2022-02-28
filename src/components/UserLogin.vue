@@ -15,6 +15,7 @@
                     <div v-show="showError">
                         <b-alert class="pre-formatted" variant="danger" id="show-error-text" show>{{messageError}}</b-alert>
                     </div>
+                    <b-overlay :show="showLoader" rounded="sm">
                     <b-card title="Login" sub-title="">
                         <b-form @submit="authenticate">
                             <b-form-group id="input-group-1" label="Email:" label-for="input-email">
@@ -42,6 +43,7 @@
                             <b-link v-on:click="signUp">Sign Up</b-link>
                         </div>
                     </b-card>
+                    </b-overlay>
                 </div>
             </b-col>
             <b-col>
@@ -62,6 +64,7 @@
                 showError:false,
                 messageError:'',
                 messageSuccess:'',
+                showLoader: false,
             }
         },
         methods: {
@@ -69,6 +72,7 @@
             {
                 this.showError = false;
                 this.showSuccess = false;
+                this.showLoader = true;
 
                 let auth = await apiMixins.authenticate(this.email, this.password);
 
@@ -80,6 +84,8 @@
                     this.showError = true;
                     this.messageError = auth.response.data.message;
                 }
+
+                this.showLoader = false;
             },
 
             async signUp()

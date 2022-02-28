@@ -14,6 +14,7 @@
                 <div v-show="showError">
                     <b-alert class="pre-formatted" variant="danger" id="show-error-text" show>{{messageError}}</b-alert>
                 </div>
+                <b-overlay :show="showLoader" rounded="sm">
                 <div id="div-create-checkout-form" v-show="showForm">
                     <b-card title="Checkout" sub-title="">
                         <b-form @submit="createCheckout">
@@ -40,6 +41,7 @@
                         </b-form>
                     </b-card>
                 </div>
+                </b-overlay>
                 <div v-show="showPaymment">
                         <div id="div-create-payment-widget">
                             <form id="form-create-payment-widget" class="paymentWidgets" data-brands="VISA MASTER AMEX"></form>
@@ -66,6 +68,7 @@
                 showError:false,
                 messageError:'',
                 messageSuccess:'',
+                showLoader: false,
             }
         },
         methods: {
@@ -73,8 +76,11 @@
             {
                 this.showError = false;
                 this.showSuccess = false;
+                this.showLoader = true;
 
                 let checkout = await apiMixins.createCheckout(this.amount, this.reference);
+
+                this.showLoader = false;
 
                 if(checkout.status === 201){
                     this.showForm = false;
