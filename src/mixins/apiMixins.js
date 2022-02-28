@@ -11,20 +11,13 @@ export const apiMixins = {
             email:email,
             password:passwrd,
         }).then(response => {
-            data = response.data;
-            localStorage.setItem("user-token",JSON.stringify(data));
+            data = response;
+            localStorage.setItem("user-token",JSON.stringify(response.data));
         }).catch(reason => {
-            data = reason.response.data;
-
-            if(reason.response.status === 422){
-                // reason.response.data.errors
-                alert(reason.response.data.message)
-            }else{
-                alert(reason.response.data.message);
-            }
+            data = reason;
         });
 
-        return false;
+        return data;
     },
 
     async getUser(){
@@ -35,12 +28,9 @@ export const apiMixins = {
                 Authorization: userToken.tokenType + " " + userToken.accessToken,
             }}).then(response => {
             localStorage.setItem("user",JSON.stringify(response.data.data));
-            data = true;
+            data = response;
         }).catch(reason => {
-            data = false;
-            if(reason.response.status === 401){
-                alert('Please log back in again');
-            }
+            data = reason;
             localStorage.clear();
         });
 
@@ -56,15 +46,9 @@ export const apiMixins = {
             name:name,
             surname:surname
         }).then(response => {
-            alert(response.data.message);
-            data = true;
+            data = response
         }).catch(reason => {
-            if(reason.response.status === 422){
-                alert(reason.response.data.message);
-            }else{
-                alert(reason.message);
-            }
-            data = false;
+            data = reason;
         });
 
         return data;
@@ -81,15 +65,24 @@ export const apiMixins = {
                 Authorization: userToken.tokenType + " " + userToken.accessToken,
             }
         }).then(response => {
-            data = response.data.data.id;
+            data = response;
         }).catch(reason => {
-            if(reason.response.status === 422){
-                alert(reason.response.data.message);
-            }else{
-                alert(reason.message);
-            }
-            data = false
+            data = reason
         });
         return data;
     },
-}
+
+    async getCheckout(checkoutId){
+        let userToken = await this.userToken();
+        let data = null;
+        await axios.get(process.env.VUE_APP_AFMS_API_BASE + process.env.VUE_APP_AFMS_API_URI_CHECKOUTS + '/' + checkoutId,{
+            headers: {
+                Authorization: userToken.tokenType + " " + userToken.accessToken,
+            }}).then(response => {
+            data = response;
+        }).catch(reason => {
+            data = reason;
+        });
+        return data;
+    }
+};

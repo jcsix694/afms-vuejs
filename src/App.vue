@@ -15,37 +15,36 @@
     export default {
         name: 'App',
         methods: {
-            home()
+            async home()
             {
-                localStorage.clear();
-                this.$router.push({name: "PortalHome"});
+                await this.$router.push({name: "PortalHome"});
             },
 
-            checkouts()
+            async checkouts()
             {
-                localStorage.clear();
-                this.$router.push({name: "PortalCheckouts"});
+                await this.$router.push({name: "PortalCheckouts"});
             },
 
-            logout()
+            async logout()
             {
                 localStorage.clear();
-                this.$router.push({name: "UserLogin"});
+                await this.$router.push({name: "UserLogin"});
             },
 
             async getUser()
             {
-                if(!await apiMixins.getUser()){
-                    await this.$router.push({name: "UserLogin"});
+                let user = await apiMixins.getUser();
+
+                if(user.status !== 200){
+                    alert('You have been logged out, please log back in');
+                    await this.logout();
                 }
             },
-        },
-        async mounted() {
-            if (localStorage.getItem("user-token")) {
-                await this.getUser()
-            } else {
-                await this.$router.push({name: "UserLogin"});
-            }
         }
     }
 </script>
+<style>
+    .pre-formatted {
+        white-space: pre-wrap;
+    }
+</style>

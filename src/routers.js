@@ -1,4 +1,5 @@
 import PortalHome from './components/PortalHome.vue'
+import PortalCheckout from './components/PortalCheckout.vue'
 import PortalCheckouts from './components/PortalCheckouts.vue'
 import UserRegister from "./components/UserRegister.vue";
 import UserLogin from "./components/UserLogin.vue";
@@ -24,13 +25,18 @@ const routes = [
     {
         name:'PortalHome',
         component:PortalHome,
-        path:'/home'
+        path:'/home',
     },
     {
         name:'PortalCheckouts',
         component:PortalCheckouts,
-        path:'/checkouts'
+        path:'/checkouts',
     },
+    {
+        name:'PortalCheckout',
+        component:PortalCheckout,
+        path:'/checkout',
+    }
 ]
 
 const router = createRouter({

@@ -9,6 +9,12 @@
             </b-col>
             <b-col cols="7">
                 <div>
+                    <div v-show="showSuccess">
+                        <b-alert class="pre-formatted" variant="success" id="show-sucess-text" show>{{messageSuccess}}</b-alert>
+                    </div>
+                    <div v-show="showError">
+                        <b-alert class="pre-formatted" variant="danger" id="show-error-text" show>{{messageError}}</b-alert>
+                    </div>
                     <b-card title="Login" sub-title="">
                         <b-form @submit="authenticate">
                             <b-form-group id="input-group-1" label="Email:" label-for="input-email">
@@ -52,15 +58,27 @@
             return {
                 email:'',
                 password:'',
+                showSuccess:false,
+                showError:false,
+                messageError:'',
+                messageSuccess:'',
             }
         },
         methods: {
             async authenticate()
             {
-                await apiMixins.authenticate(this.email, this.password);
+                this.showError = false;
+                this.showSuccess = false;
+
+                let auth = await apiMixins.authenticate(this.email, this.password);
 
                 if(localStorage.getItem("user-token")){
                     await this.$router.push({name:'PortalHome'});
+                }
+
+                if(auth.status !== 200){
+                    this.showError = true;
+                    this.messageError = auth.response.data.message;
                 }
             },
 
