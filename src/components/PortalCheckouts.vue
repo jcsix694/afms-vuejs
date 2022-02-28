@@ -25,7 +25,7 @@
         data(){
             return {
                 showTable:false,
-                currentPage: 0,
+                currentPage: 1,
                 perPage: 0,
                 totalItems: 0,
                 showLoader: false,

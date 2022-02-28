@@ -2,7 +2,7 @@
 
         <b-nav tabs v-if="!$route.meta.hideNavbar">
             <b-nav-item v-on:click="home" active role="button">Home</b-nav-item>
-            <b-nav-item v-on:click="checkouts" role="button">Checkouts</b-nav-item>
+            <b-nav-item v-on:click="checkouts" role="button">Payment History</b-nav-item>
             <b-nav-item v-on:click="logout" role="button">Logout</b-nav-item>
         </b-nav>
 
