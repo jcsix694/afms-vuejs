@@ -23,6 +23,8 @@
                         <b-card-text>Amount: {{checkoutAmount}}</b-card-text>
                         <b-card-text>Currency: {{checkoutCurrency}}</b-card-text>
                         <b-card-text>Reference: {{checkoutReference}}</b-card-text>
+                        <b-card-text>Code: {{checkoutCode}}</b-card-text>
+                        <b-card-text>Description: {{checkoutDescription}}</b-card-text>
                         <template #footer>
                             <em>Completed At: {{checkoutCompletedAt}}</em>
                         </template>
@@ -47,6 +49,8 @@
                 checkoutReference:'',
                 checkoutCurrency:'',
                 checkoutCompletedAt:'',
+                checkoutCode:'',
+                checkoutDescription:'',
                 showCheckout: false,
                 showSuccess:false,
                 showError:false,
@@ -66,7 +70,8 @@
 
                 if(user.status !== 200){
                     alert('You have been logged out, please log back in');
-                    await this.logout();
+                    localStorage.clear();
+                    await this.$router.push({name: "UserLogin"});
                 }
             },
         },
@@ -84,6 +89,8 @@
                       this.checkoutReference = checkout.data.data.reference;
                       this.checkoutCurrency = checkout.data.data.responsePayment.currency;
                       this.checkoutCompletedAt = checkout.data.data.completedAt;
+                      this.checkoutCode = checkout.data.data.responsePayment.result.code;
+                      this.checkoutDescription = checkout.data.data.responsePayment.result.description;
                       this.showCheckout = true;
                   }else{
                       if(checkout.response.data.status) {

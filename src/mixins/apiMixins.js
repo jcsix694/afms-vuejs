@@ -84,5 +84,19 @@ export const apiMixins = {
             data = reason;
         });
         return data;
+    },
+
+    async getCheckouts(page){
+        let userToken = await this.userToken();
+        let data = null;
+        await axios.get(process.env.VUE_APP_AFMS_API_BASE + process.env.VUE_APP_AFMS_API_URI_CHECKOUTS + '?page=' + page,{
+            headers: {
+                Authorization: userToken.tokenType + " " + userToken.accessToken,
+            }}).then(response => {
+            data = response;
+        }).catch(reason => {
+            data = reason;
+        });
+        return data;
     }
 };

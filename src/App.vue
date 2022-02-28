@@ -37,7 +37,8 @@
 
                 if(user.status !== 200){
                     alert('You have been logged out, please log back in');
-                    await this.logout();
+                    localStorage.clear();
+                    await this.$router.push({name: "UserLogin"});
                 }
             },
         }

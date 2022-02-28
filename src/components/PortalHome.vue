@@ -41,11 +41,9 @@
                     </b-card>
                 </div>
                 <div v-show="showPaymment">
-                    <b-card title="" sub-title="">
                         <div id="div-create-payment-widget">
                             <form id="form-create-payment-widget" class="paymentWidgets" data-brands="VISA MASTER AMEX"></form>
                         </div>
-                    </b-card>
                 </div>
             </b-col>
             <b-col>
@@ -108,7 +106,8 @@
 
                 if(user.status !== 200){
                     alert('You have been logged out, please log back in');
-                    await this.logout();
+                    localStorage.clear();
+                    await this.$router.push({name: "UserLogin"});
                 }
             },
         },
