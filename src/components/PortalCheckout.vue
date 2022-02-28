@@ -18,7 +18,7 @@
                 <div id="div-completed-checkout-card" v-show="showCheckout">
                     <b-card title="" header-tag="header" footer-tag="footer">
                         <template #header>
-                            <h6 class="mb-0">{{checkoutId}}t</h6>
+                            <h6 class="mb-0">{{checkoutId}}</h6>
                         </template>
                         <b-card-text>Status: {{checkoutStatus}}</b-card-text>
                         <b-card-text>Amount: {{checkoutAmount}}</b-card-text>
@@ -91,12 +91,12 @@
 
                   if(checkout.status === 200){
                       this.checkoutStatus = checkout.data.data.status;
-                      this.checkoutAmount = checkout.data.data.responsePayment.amount;
+                      this.checkoutAmount = checkout.data.data.payment.amount;
                       this.checkoutReference = checkout.data.data.reference;
-                      this.checkoutCurrency = checkout.data.data.responsePayment.currency;
-                      this.checkoutCompletedAt = checkout.data.data.completedAt;
-                      this.checkoutCode = checkout.data.data.responsePayment.result.code;
-                      this.checkoutDescription = checkout.data.data.responsePayment.result.description;
+                      this.checkoutCurrency = checkout.data.data.payment.currency;
+                      this.checkoutCompletedAt = checkout.data.data.payment.completedAt;
+                      this.checkoutCode = checkout.data.data.payment.code;
+                      this.checkoutDescription = checkout.data.data.payment.description;
                       this.showCheckout = true;
                   }else{
                       if(checkout.response.data.status) {

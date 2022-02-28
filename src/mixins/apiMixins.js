@@ -98,5 +98,23 @@ export const apiMixins = {
             data = reason;
         });
         return data;
-    }
+    },
+
+    async createRefund(amount, paymentId){
+        let userToken = await this.userToken();
+        let data = null;
+        await axios.post(process.env.VUE_APP_AFMS_API_BASE + process.env.VUE_APP_AFMS_API_URI_PAYMENTS + process.env.VUE_APP_AFMS_API_URI_REFUND,{
+            amount:amount,
+            paymentId:paymentId,
+        }, {
+            headers: {
+                Authorization: userToken.tokenType + " " + userToken.accessToken,
+            }
+        }).then(response => {
+            data = response;
+        }).catch(reason => {
+            data = reason
+        });
+        return data;
+    },
 };

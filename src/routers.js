@@ -1,6 +1,7 @@
 import PortalHome from './components/PortalHome.vue'
 import PortalCheckout from './components/PortalCheckout.vue'
 import PortalCheckouts from './components/PortalCheckouts.vue'
+import PortalRefund from './components/PortalRefund.vue'
 import UserRegister from "./components/UserRegister.vue";
 import UserLogin from "./components/UserLogin.vue";
 import {createRouter, createWebHistory} from 'vue-router'
@@ -36,6 +37,11 @@ const routes = [
         name:'PortalCheckout',
         component:PortalCheckout,
         path:'/checkout',
+    },
+    {
+        name:'PortalRefund',
+        component:PortalRefund,
+        path:'/payment/:id/refund',
     }
 ]
 

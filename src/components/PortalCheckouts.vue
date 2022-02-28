@@ -10,7 +10,11 @@
                     <p class="mt-3">Current Page: {{ currentPage }}</p>
                     <b-pagination size="md" :total-rows="totalItems" v-model="currentPage" :per-page="perPage"></b-pagination>
                     <b-overlay :show="showLoader" rounded="sm">
-                    <b-table show-empty :items="items" :fields="fields" :current-page="currentPage" :per-page="0"></b-table>
+                    <b-table show-empty :items="items" :fields="fields" :current-page="currentPage" :per-page="0">
+                        <template #cell(refundButton)="data">
+                            <span v-html="data.value"></span>
+                        </template>
+                    </b-table>
                     </b-overlay>
                 </div>
             </b-col>
@@ -61,6 +65,10 @@
                     {
                         key: 'completedAt',
                         label: 'Completed At',
+                    },
+                    {
+                        key: 'refundButton',
+                        label: '',
                     }
 
                 ],
@@ -91,17 +99,27 @@
 
                     // eslint-disable-next-line no-unused-vars
                     for (const [key, value] of Object.entries(this.items)) {
-                        if(!value.responsePayment) {
+                        if(!value.payment) {
                             this.items[key].amount = null;
                             this.items[key].currency = null;
                             this.items[key].code = null;
                             this.items[key].description = null;
+                            this.items[key].completedAt = null;
+                            this.items[key].refundButton = null;
                         } else {
-                            this.items[key].amount = value.responsePayment.amount;
-                            this.items[key].currency = value.responsePayment.currency;
-                            this.items[key].code = value.responsePayment.result.code;
-                            this.items[key].description = value.responsePayment.result.description;
+                            this.items[key].amount = value.payment.amount;
+                            this.items[key].currency = value.payment.currency;
+                            this.items[key].code = value.payment.code;
+                            this.items[key].description = value.payment.description;
+                            this.items[key].completedAt = value.payment.completedAt;
+                            if(value.status === 'partially_refunded' || value.status === 'completed'){
+                                this.items[key].refundButton = '<a href="payment/'+value.payment.id+'/refund"><button class="btn btn-primary">Refund</button></a>';
+                            }else{
+                                this.items[key].refundButton = null;
+                            }
                         }
+
+
                     }
                     this.showTable = true;
                 }
@@ -117,6 +135,11 @@
                     await this.$router.push({name: "UserLogin"});
                 }
             },
+
+            async openRefund()
+            {
+                alert('paymentId');
+            }
         },
         async mounted() {
             this.showLoader = true;
