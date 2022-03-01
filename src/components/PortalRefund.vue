@@ -69,7 +69,7 @@
 
                 if(checkout.status === 201){
                     this.showSuccess = true;
-                    this.messageSuccess = "A refund of " + this.amount + " has been processed";
+                    this.messageSuccess = "Refund processed";
                 }else{
                     if(checkout.response.data.status) {
                         this.showError = true;
